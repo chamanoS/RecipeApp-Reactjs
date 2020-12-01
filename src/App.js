@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Recipe from './Recipe';
 import './App.css';
+require('dotenv').config()
 
 const App = () => {
 
-  const APP_ID = "bc5b9997";
-  const APP_KEY = "6b9ce657f7ddb1bfb45c22296711d712";
   
   const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState('');
@@ -16,7 +15,8 @@ const App = () => {
   },[query]);
 
   const getRecipes = async () =>{
-    const response = await fetch(`https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`)
+    const response = await fetch(
+    `https://api.edamam.com/search?q=${query}&app_id=${process.env.REACT_APP_ID}&app_key=${process.env. REACT_APP_KEY}`)
     const data = await response.json()
     setRecipes(data.hits)
     console.log(data.hits)
